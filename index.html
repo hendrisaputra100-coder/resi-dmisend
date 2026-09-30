@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#5c0a17">
+<title>Resi Digital DUMAI SEND</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wine:#5c0a17; --ruby:#9b1226; --red:#c8102e; --rose:#f6e9ea; --blush:#fbf5f5;
+  --gold:#c9a45c; --ink:#2a0d12; --mute:#8a6a70; --line:#ecdcde;
+}
+*{box-sizing:border-box;margin:0}
+.i{width:1em;height:1em;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ico svg{font-size:.95rem}
+.seg button svg{font-size:1.2rem}
+.btn-send svg{font-size:1.3rem}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);min-height:100vh;
+  background:radial-gradient(1200px 500px at 50% -10%,#8c1226 0,transparent 60%),linear-gradient(#3a0610,#22040a) fixed;
+  display:flex;justify-content:center;padding:0}
+@media(min-width:520px){body{padding:28px 16px}}
+.app{width:100%;max-width:460px;background:var(--blush);display:flex;flex-direction:column;position:relative;overflow:hidden;min-height:100vh}
+@media(min-width:520px){.app{min-height:0;border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,.5)}}
+
+/* HERO */
+.hero{background:linear-gradient(155deg,var(--ruby),var(--wine) 70%);color:#fff;padding:calc(34px + env(safe-area-inset-top,0px)) 24px 84px;position:relative;overflow:hidden}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(201,164,92,.35)}
+.hero::before{width:260px;height:260px;right:-90px;top:-100px}
+.hero::after{width:170px;height:170px;right:-40px;top:-50px}
+.brand{font-family:'Playfair Display',serif;font-weight:800;font-size:2.15rem;letter-spacing:.02em;line-height:1}
+.tag{margin-top:6px;font-size:.78rem;color:#f0d9b0;letter-spacing:.04em}
+.meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.75rem;font-weight:500;color:#f7dfe1}
+.meta svg{color:var(--gold);margin-right:6px;vertical-align:-2px}
+
+/* TICKET */
+.ticket{margin:-58px 18px 0;background:#fff;border-radius:20px;padding:16px 18px;position:relative;z-index:2;
+  box-shadow:0 14px 30px rgba(92,10,23,.18);display:flex;align-items:center;gap:14px;border-left:5px solid var(--red)}
+.ticket::after{content:"";position:absolute;right:86px;top:10px;bottom:10px;border-right:2px dashed var(--line)}
+.t-main{flex:1;min-width:0}
+.t-label{font-size:.68rem;font-weight:600;color:var(--mute)}
+.t-resi{font-family:ui-monospace,'SFMono-Regular',Menlo,monospace;font-weight:800;font-size:1.55rem;color:var(--red);letter-spacing:.06em;border:0;background:none;width:100%;outline:none}
+.t-time{font-size:.72rem;font-weight:600;color:var(--ink);border:0;background:none;width:100%;outline:none}
+.t-live{width:64px;text-align:center;font-size:.65rem;font-weight:700;color:var(--ruby)}
+.t-live b{display:block;width:10px;height:10px;margin:0 auto 6px;border-radius:50%;background:var(--red);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(200,16,46,.5)}100%{box-shadow:0 0 0 12px rgba(200,16,46,0)}}
+
+/* FORM */
+form{padding:22px 18px 8px;display:flex;flex-direction:column;gap:14px;flex:1}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;transition:border-color .2s,box-shadow .2s}
+.card:focus-within{border-color:var(--red);box-shadow:0 6px 20px rgba(200,16,46,.10)}
+.card h3{font-size:.85rem;font-weight:700;display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.ico{width:30px;height:30px;border-radius:10px;background:var(--rose);color:var(--ruby);display:grid;place-items:center;font-size:.8rem}
+.field{position:relative;margin-top:10px}
+.field:first-of-type{margin-top:0}
+.field>svg{position:absolute;left:13px;top:14px;color:#b99aa0;font-size:.8rem}
+input[type=text],textarea{width:100%;font:inherit;font-size:.9rem;color:var(--ink);background:var(--blush);border:1.5px solid transparent;border-radius:12px;padding:12px 14px;outline:none;transition:all .18s}
+.field>svg~input,.field>svg~textarea{padding-left:36px}
+textarea{resize:none}
+input::placeholder,textarea::placeholder{color:#b99aa0}
+input[type=text]:focus,textarea:focus{background:#fff;border-color:var(--red)}
+.invalid{border-color:var(--red)!important;background:#fff3f4!important}
+
+/* BIAYA */
+.rp{display:flex;align-items:center;gap:12px;margin-top:10px}
+.rp:first-of-type{margin-top:0}
+.rp label{width:74px;font-size:.85rem;font-weight:600}
+.rp label em{color:var(--red);font-style:normal}
+.money{position:relative;flex:1}
+.money span{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:.8rem;font-weight:700;color:var(--mute)}
+.money input{text-align:right;font-weight:800;padding-left:38px}
+.note{margin-top:10px;font-size:.8rem!important}
+
+/* PEMBAYARAN */
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.seg button{font:inherit;font-size:.82rem;font-weight:700;padding:12px 6px;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .18s}
+.seg button svg{font-size:1.05rem;color:var(--ruby)}
+.seg button:hover{border-color:var(--red)}
+.seg button[aria-pressed=true]{background:linear-gradient(160deg,var(--red),var(--wine));color:#fff;border-color:transparent;transform:translateY(-2px);box-shadow:0 8px 18px rgba(155,18,38,.3)}
+.seg button[aria-pressed=true] svg{color:var(--gold)}
+.seg.invalid{outline:2px solid var(--red);outline-offset:4px;border-radius:14px;background:none!important}
+
+/* ACTION BAR */
+.bar{position:sticky;bottom:0;z-index:5;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:12px 18px calc(12px + env(safe-area-inset-bottom,0px));margin-top:8px}
+.err{display:none;margin-bottom:10px;background:#fdecee;border:1px solid #f3b9c0;color:#9b1226;border-radius:12px;padding:10px 12px;font-size:.78rem;font-weight:600;gap:8px;align-items:flex-start}
+.err.show{display:flex}
+.shake{animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.row{display:flex;align-items:center;gap:12px}
+.total{flex:0 0 auto;min-width:104px}
+.total small{display:block;font-size:.68rem;font-weight:600;color:var(--mute)}
+.total div{display:flex;align-items:baseline;gap:4px;font-weight:800;color:var(--wine);font-size:1.25rem}
+.total div span{font-size:.75rem;font-weight:700;color:var(--mute)}
+.total input{border:0;background:none;padding:0;width:96px;font:inherit;font-weight:800;color:var(--wine);outline:none;border-radius:0}
+.btn-send{flex:1;font:inherit;font-weight:700;font-size:.92rem;color:#fff;border:0;border-radius:14px;padding:14px;cursor:pointer;
+  background:linear-gradient(135deg,var(--red),var(--wine));display:flex;align-items:center;justify-content:center;gap:9px;
+  box-shadow:0 10px 22px rgba(155,18,38,.35);transition:transform .15s,box-shadow .15s}
+.btn-send:hover{transform:translateY(-1px)}
+.btn-send:active{transform:scale(.98)}
+.btn-send svg{font-size:1.2rem}
+.btn-reset svg{font-size:1.05rem}
+.btn-reset{width:48px;height:48px;border-radius:14px;border:1.5px solid var(--line);background:#fff;color:var(--ruby);cursor:pointer;font-size:.95rem;transition:all .18s}
+.btn-reset:hover{background:var(--rose)}
+.btn-reset:active svg{transform:rotate(-180deg);transition:transform .3s}
+
+footer{background:var(--wine);color:#f3d9dc;padding:14px 18px;display:flex;justify-content:center;flex-wrap:wrap;gap:6px 22px;font-size:.75rem;font-weight:500}
+footer a{color:inherit;text-decoration:none}
+footer a:hover{color:var(--gold)}
+footer svg{color:var(--gold);margin-right:6px;vertical-align:-2px}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="map" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+<symbol id="wa" viewBox="0 0 24 24"><path d="M3 21l1.7-5A9 9 0 1112 21a9 9 0 01-4.3-1.1z"/><path d="M9 9c0 3 3 6 6 6l1-1.5-2-1-1 .8c-1-.4-2-1.4-2.4-2.4l.8-1-1-2z"/></symbol>
+<symbol id="send" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></symbol>
+<symbol id="box" viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></symbol>
+<symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></symbol>
+<symbol id="usercheck" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6"/><path d="M16 11l2 2 4-4"/></symbol>
+<symbol id="idcard" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 17c0-2 1.5-3 3-3s3 1 3 3M15 9h3M15 13h3"/></symbol>
+<symbol id="moto" viewBox="0 0 24 24"><circle cx="5.5" cy="17" r="3"/><circle cx="18.5" cy="17" r="3"/><path d="M8.5 17H14l3-7h-4M15 6h3l1.5 4M10 10h4"/></symbol>
+<symbol id="invoice" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M14.5 12.5c-.5-1-3.5-1.2-3.5.5s3.5 1 3.5 2.7-3 1.6-3.7.3M12 11v1M12 16.5v1"/></symbol>
+<symbol id="wallet" viewBox="0 0 24 24"><path d="M20 7H5a2 2 0 010-4h13v4"/><path d="M3 5v14a2 2 0 002 2h15V7"/><circle cx="16.5" cy="14" r="1"/></symbol>
+<symbol id="cash" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></symbol>
+<symbol id="transfer" viewBox="0 0 24 24"><path d="M4 8h14M14 4l4 4-4 4M20 16H6M10 12l-4 4 4 4"/></symbol>
+<symbol id="qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h3M20 17v4"/></symbol>
+<symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></symbol>
+<symbol id="ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></symbol>
+<symbol id="alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+<symbol id="undo" viewBox="0 0 24 24"><path d="M3 12a9 9 0 109-9 9 9 0 00-6.7 3L3 8"/><path d="M3 3v5h5"/></symbol>
+</defs></svg>
+<main class="app">
+
+  <header class="hero">
+    <h1 class="brand">DUMAI SEND</h1>
+    <p class="tag">Amanah, Aman &amp; Terpercaya</p>
+    <div class="meta">
+      <span><svg class="i" aria-hidden="true"><use href="#map"/></svg>Jl. Sidorejo Samping Gg. Dermawan</span>
+      <span><svg class="i" aria-hidden="true"><use href="#wa"/></svg>0822 8356 0491</span>
+    </div>
+  </header>
+
+  <section class="ticket" aria-label="Nomor resi">
+    <div class="t-main">
+      <div class="t-label">No. Resi</div>
+      <input type="text" id="noResi" class="t-resi" readonly aria-label="Nomor resi">
+      <input type="text" id="tanggalWaktu" class="t-time" readonly aria-label="Waktu">
+    </div>
+    <div class="t-live"><b></b>Waktu nyata</div>
+  </section>
+
+  <form id="resiForm" novalidate>
+
+    <div class="card">
+      <h3><span class="ico"><svg class="i" aria-hidden="true"><use href="#send"/></svg></span>Data pengirim</h3>
+      <div class="field"><svg class="i" aria-hidden="true"><use href="#user"/></svg>
+        <input type="text" id="pengirimNama" placeholder="Nama pengirim" required autocomplete="off"></div>
+      <div class="field"><svg class="i" aria-hidden="true"><use href="#map"/></svg><textarea id="pengirimAlamat" rows="2" placeholder="Alamat pengirim" required autocomplete="off"></textarea></div>
+    </div>
+
+    <div class="card">
+      <h3><span class="ico"><svg class="i" aria-hidden="true"><use href="#box"/></svg></span>Data penerima</h3>
+      <div class="field"><svg class="i" aria-hidden="true"><use href="#usercheck"/></svg>
+        <input type="text" id="penerimaNama" placeholder="Nama penerima" required autocomplete="off"></div>
+      <div class="field"><svg class="i" aria-hidden="true"><use href="#map"/></svg><textarea id="penerimaAlamat" rows="2" placeholder="Alamat lengkap tujuan" required autocomplete="off"></textarea></div>
+    </div>
+
+    <div class="card">
+      <h3><span class="ico"><svg class="i" aria-hidden="true"><use href="#moto"/></svg></span>Kurir yang bertugas</h3>
+      <div class="field"><svg class="i" aria-hidden="true"><use href="#idcard"/></svg>
+        <input type="text" id="kurir" placeholder="Nama kurir" required autocomplete="off"></div>
+    </div>
+
+    <div class="card">
+      <h3><span class="ico"><svg class="i" aria-hidden="true"><use href="#invoice"/></svg></span>Rincian biaya</h3>
+      <div class="rp">
+        <label for="orderan">Orderan</label>
+        <div class="money"><span>Rp</span>
+          <input type="text" id="orderan" placeholder="0 (opsional)" inputmode="numeric" oninput="formatAndCalculate(this)"></div>
+      </div>
+      <div class="rp">
+        <label for="ongkir">Ongkir <em>*</em></label>
+        <div class="money"><span>Rp</span>
+          <input type="text" id="ongkir" placeholder="0" required inputmode="numeric" oninput="formatAndCalculate(this)"></div>
+      </div>
+      <input type="text" id="catatanOngkir" class="note" placeholder="Catatan rincian ongkir (opsional)" autocomplete="off">
+    </div>
+
+    <div class="card">
+      <h3><span class="ico"><svg class="i" aria-hidden="true"><use href="#wallet"/></svg></span>Metode pembayaran <em style="color:var(--red);font-style:normal">*</em></h3>
+      <input type="hidden" id="metodePembayaran" value="">
+      <div class="seg" id="seg" role="group" aria-label="Metode pembayaran">
+        <button type="button" data-v="Cash" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#cash"/></svg>Cash</button>
+        <button type="button" data-v="Transfer" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#transfer"/></svg>Transfer</button>
+        <button type="button" data-v="Qris" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#qr"/></svg>Qris</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="bar">
+    <div id="errorBox" class="err" role="alert"><svg class="i" aria-hidden="true"><use href="#alert"/></svg><p id="errorText"></p></div>
+    <div class="row">
+      <button type="button" class="btn-reset" onclick="resetFormOnly()" aria-label="Reset formulir"><svg class="i" aria-hidden="true"><use href="#undo"/></svg></button>
+      <div class="total"><small>Total</small><div><span>Rp</span><input type="text" id="totalDisplay" value="0" readonly tabindex="-1" aria-label="Total"></div></div>
+      <button type="button" id="btnSubmit" class="btn-send" onclick="validateAndSend()"><svg class="i" aria-hidden="true"><use href="#wa"/></svg>Kirim resi</button>
+    </div>
+  </div>
+
+  <footer>
+    <a href="https://www.dumaisend.com" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#globe"/></svg>www.dumaisend.com</a>
+    <a href="https://instagram.com/dumai_send" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#ig"/></svg>@dumai_send</a>
+  </footer>
+</main>
+
+<script>
+const form = document.getElementById('resiForm');
+const noResiInput = document.getElementById('noResi');
+const tanggalWaktuInput = document.getElementById('tanggalWaktu');
+const orderanInput = document.getElementById('orderan');
+const ongkirInput = document.getElementById('ongkir');
+const totalDisplay = document.getElementById('totalDisplay');
+const errorBox = document.getElementById('errorBox');
+const errorText = document.getElementById('errorText');
+const metodeInput = document.getElementById('metodePembayaran');
+const seg = document.getElementById('seg');
+let clockInterval;
+
+function generateResi(){ return Math.floor(10000 + Math.random() * 989999).toString(); }
+
+function updateClock(){
+  const n = new Date(), p = v => String(v).padStart(2,'0');
+  tanggalWaktuInput.value = `${p(n.getDate())}-${p(n.getMonth()+1)}-${n.getFullYear()} ${p(n.getHours())}:${p(n.getMinutes())}:${p(n.getSeconds())}`;
+}
+
+function cleanNumber(str){
+  if(!str) return 0;
+  return parseInt(str.toString().replace(/[^0-9]/g,''),10) || 0;
+}
+function formatRibuan(angka){
+  let s = angka.toString().replace(/[^,\d]/g,''), split = s.split(',');
+  let sisa = split[0].length % 3, rupiah = split[0].substr(0,sisa);
+  let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+  if(ribuan){ rupiah += (sisa ? '.' : '') + ribuan.join('.'); }
+  return rupiah;
+}
+function formatAndCalculate(el){
+  const v = cleanNumber(el.value);
+  el.value = (v === 0 && el.value !== '0') ? '' : formatRibuan(v);
+  el.classList.remove('invalid');
+  calculateTotal();
+}
+function calculateTotal(){
+  totalDisplay.value = formatRibuan(cleanNumber(orderanInput.value) + cleanNumber(ongkirInput.value));
+}
+
+/* Pilihan metode pembayaran */
+function setMetode(v){
+  metodeInput.value = v;
+  seg.classList.remove('invalid');
+  seg.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === v));
+}
+seg.addEventListener('click', e => { const b = e.target.closest('button'); if(b) setMetode(b.dataset.v); });
+
+form.addEventListener('input', e => e.target.classList.remove('invalid'));
+
+function resetFormOnly(){
+  form.reset();
+  setMetode('');
+  noResiInput.value = generateResi();
+  totalDisplay.value = "0";
+  hideError();
+  updateClock();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function showError(msg, target){
+  errorText.innerText = msg;
+  errorBox.classList.add('show');
+  errorBox.classList.remove('shake');
+  void errorBox.offsetWidth;
+  errorBox.classList.add('shake');
+  if(target){ target.classList.add('invalid'); target.scrollIntoView({behavior:'smooth', block:'center'}); }
+}
+function hideError(){ errorBox.classList.remove('show'); }
+
+function validateAndSend(){
+  hideError();
+  const $ = id => document.getElementById(id);
+  const pNama = $('pengirimNama').value.trim(), pAlamat = $('pengirimAlamat').value.trim();
+  const rNama = $('penerimaNama').value.trim(), rAlamat = $('penerimaAlamat').value.trim();
+  const kurir = $('kurir').value.trim();
+  const ongkirVal = cleanNumber(ongkirInput.value);
+  const metodePembayaran = metodeInput.value;
+
+  if(!pNama || !pAlamat){ showError("Mohon lengkapi Nama dan Alamat Pengirim.", !pNama ? $('pengirimNama') : $('pengirimAlamat')); return; }
+  if(!rNama || !rAlamat){ showError("Mohon lengkapi Nama dan Alamat Penerima.", !rNama ? $('penerimaNama') : $('penerimaAlamat')); return; }
+  if(!kurir){ showError("Mohon isi Nama Kurir yang bertugas.", $('kurir')); return; }
+  if(ongkirVal <= 0){ showError("Ongkir wajib diisi dengan nominal yang benar.", ongkirInput); ongkirInput.focus({preventScroll:true}); return; }
+  if(!metodePembayaran){ showError("Silakan pilih Metode Pembayaran terlebih dahulu.", seg); return; }
+
+  const resi = noResiInput.value;
+  const waktuSubmit = tanggalWaktuInput.value;
+  const bulan = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  const [tglRaw, jamWA] = waktuSubmit.split(' ');
+  const [dd, mm, yyyy] = tglRaw.split('-');
+  const tglWA = `${dd} ${bulan[parseInt(mm,10)-1]} ${yyyy}`;
+  const orderanVal = cleanNumber(orderanInput.value);
+  const catatanOngkir = $('catatanOngkir').value.trim();
+  const totalVal = orderanVal + ongkirVal;
+
+  let waText = `*DUMAI SEND*\n` +
+               `Amanah, Aman & Terpercaya\n` +
+               `---------------------------------\n` +
+               `*NO. RESI:* ${resi}\n` +
+               `*TANGGAL:* ${tglWA}\n` +
+               `*JAM:* ${jamWA}\n` +
+               `---------------------------------\n` +
+               `*DATA PENGIRIM*\n` +
+               `Nama: ${pNama}\n` +
+               `Alamat: ${pAlamat}\n\n` +
+               `*DATA PENERIMA*\n` +
+               `Nama: ${rNama}\n` +
+               `Alamat: ${rAlamat}\n` +
+               `---------------------------------\n` +
+               `*KURIR:* ${kurir}\n` +
+               `---------------------------------\n` +
+               `*RINCIAN BIAYA*\n`;
+  if(orderanVal > 0){ waText += `Orderan: Rp ${formatRibuan(orderanVal)}\n`; }
+  waText += `Ongkir: Rp ${formatRibuan(ongkirVal)}\n`;
+  if(catatanOngkir !== ""){ waText += `_Catatan: ${catatanOngkir}_\n`; }
+  waText += `*TOTAL: Rp ${formatRibuan(totalVal)}*\n` +
+            `*PEMBAYARAN: ${metodePembayaran.toUpperCase()}*\n` +
+            `---------------------------------\n` +
+            `Terima kasih telah menggunakan jasa DUMAI SEND.\n` +
+            `Web: www.dumaisend.com\n` +
+            `Instagram: @dumai_send`;
+
+  window.open(`https://wa.me/?text=${encodeURIComponent(waText)}`, '_blank');
+}
+
+window.onload = function(){
+  noResiInput.value = generateResi();
+  updateClock();
+  clockInterval = setInterval(updateClock, 1000);
+};
+</script>
+</body>
+</html>
